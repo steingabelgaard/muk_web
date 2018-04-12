@@ -89,7 +89,10 @@ class MSOfficeParserController(http.Controller):
             except requests.exceptions.RequestException as exception:
                 return self._make_error_response(exception.response.status_code, exception.response.reason or _("Unknown Error"))
         try:
-            response = self._make_pdf_response(pdfconv.converter.convert_binary2pdf(data, content_type, None, format='binary'), export_filename or uuid.uuid4())
+            url = self.env['ir.config_parameter'].sudo().get_param('muk_web_preview.msoffice.pdf', 'http://converter/unoconv/pdf')
+            files = {'file': data}
+            r = requests.post(url, files=files)
+            response = self._make_pdf_response(r.content, export_filename or uuid.uuid4())
             pdf_cache[url] = response
             return response
         except KeyError:
