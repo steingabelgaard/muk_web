@@ -8,6 +8,8 @@ Extendes the Preview Dialog to support MS Office files. Currently the following 
 
 ## Dependencies
 
+Needs an remote web service based on unoconv
+
 ### PDF Converter ([pdfconv](https://github.com/keshrath/pdfconv))
 
 The Python library pdfconv can be used to convert a variety of different file types to PDF. It can be used on Windows as well as Linux.
