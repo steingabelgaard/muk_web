@@ -55,7 +55,6 @@
         "python": [
             'requests',
             'cachetools',
-            'pdfconv'
         ],
         "bin": [],
     },

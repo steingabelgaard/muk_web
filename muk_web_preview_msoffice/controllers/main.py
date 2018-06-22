@@ -55,11 +55,7 @@ try:
 except ImportError:
     _logger.warn('Cannot `import cachetools`.')
 
-try:
-    import pdfconv
-except ImportError:
-    _logger.warn('Cannot `import pdfconv`.')
-    
+  
 class MSOfficeParserController(http.Controller):
     
     @http.route('/web/preview/converter/msoffice', auth="user", type='http')
