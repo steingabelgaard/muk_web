@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 ###################################################################################
 #
 #    Copyright (C) 2017 MuK IT GmbH
@@ -20,12 +18,13 @@
 ###################################################################################
 
 import os
-import base64
 import logging
 import unittest
 
-from odoo import _
 from odoo.tests import common
+
+_path = os.path.dirname(os.path.dirname(__file__))
+_logger = logging.getLogger(__name__)
 
 class PreviewTestCase(common.HttpCase):
     
@@ -38,9 +37,9 @@ class PreviewTestCase(common.HttpCase):
     def tearDown(self):
         super(PreviewTestCase, self).tearDown()
     
-    @unittest.skip("skip")    
+    @unittest.skip("PhantomJS")
     def test_preview(self):
-        self.phantom_js("/web",
+        self.phantom_js("/web?debug=",
                         "odoo.__DEBUG__.services['web_tour.tour'].run('preview')",
                         "odoo.__DEBUG__.services['web_tour.tour'].tours.preview.ready",
                         login="admin")

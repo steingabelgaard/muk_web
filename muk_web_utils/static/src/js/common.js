@@ -27,14 +27,6 @@ var utils = require('web.utils');
 var QWeb = core.qweb;
 var _t = core._t;
 
-var delay = (function(){
-    var timer = 0;
-    return function(callback, ms){
-    	clearTimeout (timer);
-    	timer = setTimeout(callback, ms);
-    };
-})();
-
 function format_number(value) {
 	if (value === false || typeof value !== "number") {
 	    return "";
@@ -46,7 +38,7 @@ function format_number(value) {
 }
 
 function format_size(bytes, options) {
-	var options = options || {}
+	var options = options || {};
     var thresh = options.si ? 1000 : 1024;
     if(Math.abs(bytes) < thresh) {
     	return format_number(bytes) + ' B';
@@ -62,10 +54,29 @@ function format_size(bytes, options) {
     return format_number(bytes) + ' ' + units[u];
 }
 
+
+function unique_string() {
+    function chr4() {
+        return Math.random().toString(16).slice(-4);
+    }
+    return chr4() + chr4() + '-' + chr4() + '-' + chr4() + '-' + chr4() + '-' + chr4() + chr4() + chr4();
+}
+
+function unique_id(prefix) {
+	var random = unique_string();
+	var prefix = prefix || "";
+	var id = prefix + random;
+	while ($('#' + id).length >= 1) {
+        id = prefix + unique_string();
+    }
+   	return id;
+}
+
 return {
-	delay: delay,
 	format_number: format_number,
 	format_size: format_size,
-}
+	unique_string: unique_string,
+	unique_id: unique_id,
+};
 
 });
