@@ -26,9 +26,6 @@ import werkzeug
 from odoo import _, http
 from odoo.http import request
 
-from odoo.addons.muk_utils.tools.http import get_response
-from odoo.addons.muk_utils.tools.http import make_error_response
-
 _logger = logging.getLogger(__name__)
 
 MIMETPYES = [
@@ -49,8 +46,11 @@ class MSOfficeParserController(http.Controller):
             return werkzeug.exceptions.UnsupportedMediaType()
         else:
             try:
+                url = request.env['ir.config_parameter'].sudo().get_param('muk_web_preview.msoffice.pdf', 'http://converter/unoconv/pdf')
+                files = {'file': content}
+                r = requests.post(url, files=files)
                 filename = "%s%s" % (uuid.uuid4(), mimetypes.guess_extension(headers['content-type']))
-                output = request.env['muk_converter.converter'].convert(filename, content)
+                output = r.content
                 return self._make_pdf_response(output, "%s.pdf" % filename)
             except Exception:
                 _logger.exception("Error while convert the file.")
