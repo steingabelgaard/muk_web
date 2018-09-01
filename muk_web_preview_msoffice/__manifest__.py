@@ -30,8 +30,8 @@
         "Mathias Markl <mathias.markl@mukit.at>",
     ],
     "depends": [
-        "muk_utils",
-        "muk_converter",
+        #"muk_utils",
+        #"muk_converter",
         "muk_web_preview",
     ],
     "data": [

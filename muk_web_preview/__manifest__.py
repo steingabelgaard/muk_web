@@ -32,7 +32,7 @@
     "depends": [
         "web",
         "base_setup",
-        "muk_web_utils",
+        #"muk_web_utils",
     ],
     "data": [
         "template/assets.xml",
