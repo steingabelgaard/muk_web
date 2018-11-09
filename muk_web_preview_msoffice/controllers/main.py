@@ -72,7 +72,7 @@ class MSOfficeParserController(http.Controller):
             files = {'file': data}
             _logger.info('REQUEST: %s', url)
             r = requests.post(url, files=files)
-            filename = "%s%s" % (uuid.uuid4(), mimetypes.guess_extension(headers['content-type']))
+            filename = "%s%s" % (uuid.uuid4(), mimetypes.guess_extension(content_type))
             output = r.content
             _logger.info('OUTPUT: %d, %s', len(output), filename)
             return self._make_pdf_response(output, "%s.pdf" % filename)
